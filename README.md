@@ -10,6 +10,7 @@ Configuration
 1. To get started, import the pmf_engine_android package into your project.
 
 import pmf_engine_android
+
 2. In your MainActivity  override fun onCreate(savedInstanceState: Bundle?) method, configure the PMF Engine with your accountId and a unique userId.
 
   PMFEngine.default.configure("accountID", UUID().uuidString)

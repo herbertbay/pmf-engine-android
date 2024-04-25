@@ -43,7 +43,7 @@ android {
 def githubProperties = new Properties()
 githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 def getVersionName = { ->
-    return "1.0.1"
+    return "1.0.2"
 }
 def getArtifactId = { ->
     return "pmf_engine_android"

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 interface PMFEngineNetworkServiceInterface {
     fun trackEvent(accountId: String, userId: String, eventName: String): Job
-    fun getFormActions(forceShow: Boolean, accountId: String, userId: String, eventName: String?, completionHandler: (List<CommandEntity>?) -> Unit): Job
+    fun getFormActions(accountId: String, userId: String, eventName: String?, completionHandler: (List<CommandEntity>?) -> Unit): Job
     fun trackFormShowing(accountId: String, userId: String)
 }
 
@@ -25,13 +25,12 @@ class PMFEngineNetworkService: PMFEngineNetworkServiceInterface {
     }
 
     override fun getFormActions(
-        forceShow: Boolean,
         accountId: String,
         userId: String,
         eventName: String?,
         completionHandler: (List<CommandEntity>?) -> Unit
     ): Job = GlobalScope.launch {
-        var userData = UserData(userId = userId, accountId = accountId, userAgent = "android",forceShow = forceShow, eventName = eventName)
+        var userData = UserData(userId = userId, accountId = accountId, userAgent = "android", eventName = eventName)
         val api = PMFNetworkService.getApi()
         val data = mapOf("data" to userData)
 
@@ -58,8 +57,6 @@ data class UserData(
     val accountId: String,
     @SerializedName("userAgent")
     val userAgent: String,
-    @SerializedName("forceShowForm")
-    val forceShow: Boolean,
     @SerializedName("eventName")
     val eventName: String?
 ) {}

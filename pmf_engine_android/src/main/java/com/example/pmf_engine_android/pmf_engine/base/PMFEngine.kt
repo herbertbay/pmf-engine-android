@@ -22,9 +22,7 @@ public interface PMFEngineInterface {
     fun configure(accountId: String, userId: String, activity: AppCompatActivity)
     fun trackKeyEvent(name: String)
     fun showPMFPopup(eventName: String?)
-    fun forceShowPMFPopup(eventName: String?)
     fun showPMFPopup()
-    fun forceShowPMFPopup()
 }
 
  public class PMFEngine : PMFEngineInterface {
@@ -71,24 +69,15 @@ public interface PMFEngineInterface {
     }
 
     override fun showPMFPopup(eventName: String?) {
-        showFormPopupIfNeeded(eventName, forceShow = false, activity = activity)
+        showFormPopupIfNeeded(eventName, activity = activity)
     }
 
-    override fun forceShowPMFPopup() {
-        forceShowPMFPopup(null)
-    }
-
-    override fun forceShowPMFPopup(eventName: String?) {
-        showFormPopupIfNeeded(eventName, forceShow = true, activity = activity)
-    }
-
-    private fun showFormPopupIfNeeded(eventName: String?, forceShow: Boolean, activity: AppCompatActivity) {
+    private fun showFormPopupIfNeeded(eventName: String?, activity: AppCompatActivity) {
         val accountId = preferences?.getAccountID()
         val userId = preferences?.getUserID()
 
         if ((accountId != null) && (userId != null)) {
             networkService.getFormActions(
-                forceShow = forceShow,
                 userId = userId,
                 accountId = accountId,
                 eventName = eventName

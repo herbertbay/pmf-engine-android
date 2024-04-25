@@ -16,6 +16,6 @@ class PMFEngineManager {
 
     fun showPopupIfNeeded()
     {
-        PMFEngine.default.forceShowPMFPopup(null)
+        PMFEngine.default.showPMFPopup()
     }
 }
